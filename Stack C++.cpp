@@ -41,9 +41,9 @@ void Pop(stack *S, address *X){
     if(!IsEmpty(*S)){
         *X = InfoTop(*S); 
         TOP(*S)-=1;
-        cout<<"Data "<<*X<<" berhasil Dihapus"<<endl;
+        cout<<"Data "<<*X<<" berhasil dihapus"<<endl;
     }else{
-        cout<<"Data kosong, tidak yang bisa dihapus"<<endl;
+        cout<<"Data dalam stack itu kosong!!"<<endl;
     }
 }
 
