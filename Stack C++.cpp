@@ -1,55 +1,52 @@
 #include <iostream>
 using namespace std;
 
-// kode untuk membuat struct 
 #define max 10
 #define nil 0
 
-typedef int infotype; //infotype itu untuk tipe data  merujuk ke nilai;
-typedef int address; // address itu untuk tipe data merujuk ke alamat nilai tersebut
+typedef int infotype; 
+typedef int address; 
 
 typedef struct DataStack{
-    infotype Data[max + 1]; // Data[10+ 1] = [][][][][]  < 10 || <= 10
+    infotype Data[max + 1]; 
     address TOP;
 }stack;
 
-#define TOP(S) (S).TOP  // untuk indeks data
-#define InfoTop(S) (S).Data[(S).TOP]  // untuk nilai data
+#define TOP(S) (S).TOP  
+#define InfoTop(S) (S).Data[(S).TOP] 
 
 void CreateEmpty(stack *S){
-    TOP(*S) = nil; // mengatur bagan stack dalam keadaan kosong
+    TOP(*S) = nil; 
 }
-// {[], [], []. []. []. []. []. []. []. []}
+
 bool IsFull(stack S){
-    // mengembalikan true dan false
-    // berdasarkan kondisi di return
     return (TOP(S) == max);
 }
+
 bool IsEmpty(stack S){
     return (TOP(S) == nil);
 }
 
 void Push(stack *S, infotype X){
     if(!IsFull(*S)){
-        TOP(*S)+=1;
-        
         InfoTop(*S) = X;
+        TOP(*S)+=1;
         cout<<"Data "<<X<<" berhasil ditambah"<<endl;
     }else{
         cout<<"Data dalam stack itu penuh!!"<<endl;
     }
 }
 
-void Pop(stack *S, address *X){ // pop ini untuk menghapus
+void Pop(stack *S, address *X){ 
     if(!IsEmpty(*S)){
-        *X = InfoTop(*S); // akan menyimpan alamat dari TOP data nya
-        TOP(*S)-=1; // akan menghapus index dari TOP
+        *X = InfoTop(*S); 
+        TOP(*S)-=1;
         cout<<"Data "<<*X<<" berhasil Dihapus"<<endl;
     }else{
         cout<<"Data kosong, tidak yang bisa dihapus"<<endl;
     }
 }
-// coba membuat fungsi yang menampilkan Data antrian 
+
 void ShowData(stack *S){
     if(!IsEmpty(*S)){
         cout<<"Data dalam stack = "<<endl;
@@ -65,9 +62,7 @@ void ShowData(stack *S){
 int main(){
     stack DataStackAntrian;
     infotype Data;
-    
-    CreateEmpty(&DataStackAntrian); // in merujuk ke alamat  index setiap kolom bagan stack kita
-    
+    CreateEmpty(&DataStackAntrian);
     cout<<"--->Menambah data-----<"<<endl;;
     Push(&DataStackAntrian, 3);
     Push(&DataStackAntrian, 5);
@@ -84,8 +79,5 @@ int main(){
     cout<<endl;
     cout<<"--->Menampilkan data-----<"<<endl;;
     ShowData(&DataStackAntrian);
-    
-    
-    
     return 0;
 }
