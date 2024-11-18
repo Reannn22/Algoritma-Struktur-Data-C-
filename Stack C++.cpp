@@ -29,8 +29,8 @@ bool IsEmpty(stack S){
 
 void Push(stack *S, infotype X){
     if(!IsFull(*S)){
-        InfoTop(*S) = X;
         TOP(*S)+=1;
+        InfoTop(*S) = X;
         cout<<"Data "<<X<<" berhasil ditambah"<<endl;
     }else{
         cout<<"Data dalam stack itu penuh!!"<<endl;
@@ -56,28 +56,19 @@ void ShowData(stack *S){
     }else{
         cout<<"Data kosong"<<endl;
     }
-    
 }
 
 int main(){
     stack DataStackAntrian;
     infotype Data;
     CreateEmpty(&DataStackAntrian);
-    cout<<"--->Menambah data-----<"<<endl;;
-    Push(&DataStackAntrian, 3);
-    Push(&DataStackAntrian, 5);
-    Push(&DataStackAntrian, 8);
-    Push(&DataStackAntrian, 7);
-    Push(&DataStackAntrian, 4);
-    cout<<endl;
-    cout<<"--->Menampilkan data-----<"<<endl;;
+    Push (&DataStackAntrian, 2);
+    Push (&DataStackAntrian, 3);
+    Push (&DataStackAntrian, 1);
+    Push (&DataStackAntrian, 4);
     ShowData(&DataStackAntrian);
-    cout<<endl;
-    cout<<"--->Menghapus data-----<"<<endl;;
-    Pop(&DataStackAntrian, &Data);
-    Pop(&DataStackAntrian, &Data);
-    cout<<endl;
-    cout<<"--->Menampilkan data-----<"<<endl;;
+    Pop (&DataStackAntrian, &Data);
     ShowData(&DataStackAntrian);
+    
     return 0;
 }
