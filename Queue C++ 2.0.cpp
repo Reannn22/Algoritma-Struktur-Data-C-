@@ -23,7 +23,7 @@ void CreateEmpty(queue *Q){
 }
 
 bool IsFull(queue Q){
-    return ((REAR(Q) == max));
+    return (REAR(Q) == max);
 }
 
 bool IsEmpty(queue Q){
@@ -33,7 +33,7 @@ bool IsEmpty(queue Q){
 void Enqueue(queue *Q, infotype X){
     if(!IsFull(*Q)){
         if(IsEmpty(*Q)){
-            FRONT(*Q) = 1;  // Set FRONT to 1 when the queue is empty
+            FRONT(*Q) = 1;  
         }
         REAR(*Q) += 1;
         InfoRear(*Q) = X;
@@ -47,7 +47,7 @@ void Dequeue(queue *Q, address *X){
     if(!IsEmpty(*Q)){
         *X = InfoFront(*Q);
         if(FRONT(*Q) == REAR(*Q)){
-            FRONT(*Q) = nil;  // Reset queue if it becomes empty after dequeue
+            FRONT(*Q) = nil;
             REAR(*Q) = nil;
         } else {
             FRONT(*Q) += 1;
