@@ -78,4 +78,5 @@ int main(){
     ShowData(&DataAntrianQueue);
     Dequeue(&DataAntrianQueue, &Data);
     ShowData(&DataAntrianQueue);
+    return 0;
 }
