@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-typedef struct Node *nAddress;
 typedef int infotype;
+typedef struct Node *nAddress;
 struct Node{
     infotype info;
     nAddress left, right, parent;
@@ -84,6 +84,23 @@ void postOrder(nAddress P){
     }
 }
 
+void clear(nAddress P){
+    if (P == NULL){
+        return;
+    }
+    else {
+        clear(P->left);   
+        clear(P->right); 
+        cout << endl << "Menghapus node: " << P->info;
+        delete P;
+    }
+}
+
+void deleteTree(){
+    clear(root);
+    cout << endl << "Tree dihapus" << endl;
+}
+
 int main(){
     nAddress node_0, node_1, node_2, node_3, node_4, node_5, node_6, node_7, node_8 ,node_9;
 
@@ -110,6 +127,6 @@ int main(){
     cout << "Post-Order: ";
     postOrder(root);
     cout << endl;
-    
+
     return 0;
 }
