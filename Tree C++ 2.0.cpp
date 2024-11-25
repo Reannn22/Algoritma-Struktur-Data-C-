@@ -84,23 +84,6 @@ void postOrder(nAddress P){
     }
 }
 
-void clear(nAddress P){
-    if (P == NULL){
-        return;
-    }
-    else {
-        clear(P->left);   
-        clear(P->right); 
-        cout << endl << "Menghapus node: " << P->info;
-        delete P;
-    }
-}
-
-void deleteTree(){
-    clear(root);
-    cout << endl << "Tree dihapus" << endl;
-}
-
 int main(){
     nAddress node_0, node_1, node_2, node_3, node_4, node_5, node_6, node_7, node_8 ,node_9;
 
