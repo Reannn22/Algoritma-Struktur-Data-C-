@@ -4,17 +4,17 @@ using namespace std;
 #define max 10
 #define nil 0
 
-typedef int infotype; 
-typedef int address; 
+typedef int infotype;
+typedef int address;
 
 typedef struct DataQueue{
-    infotype Data[max + 1]; 
-    address FRONT, REAR;
+    infotype Data [max + 1];
+    address FRONT,REAR;
 }queue;
 
-#define FRONT(Q) (Q).FRONT  
-#define REAR(Q) (Q).REAR  
-#define InfoFront(Q) (Q).Data[(Q).FRONT] 
+#define FRONT(Q) (Q).FRONT
+#define REAR(Q) (Q).REAR
+#define InfoFront(Q) (Q).Data[(Q).FRONT]
 #define InfoRear(Q) (Q).Data[(Q).REAR]
 
 void CreateEmpty(queue *Q){
@@ -23,27 +23,27 @@ void CreateEmpty(queue *Q){
 }
 
 bool IsFull(queue Q){
-    return (REAR(Q) == max);
+    return (FRONT(Q) == max);
 }
 
 bool IsEmpty(queue Q){
-    return (FRONT(Q) == nil);
+    return (REAR(Q) == nil);
 }
 
 void Enqueue(queue *Q, infotype X){
     if(!IsFull(*Q)){
         if(IsEmpty(*Q)){
-            FRONT(*Q) = 1;  
+            FRONT(*Q) = 1;
         }
         REAR(*Q) += 1;
         InfoRear(*Q) = X;
-        cout << "Data " << X << " berhasil ditambah" << endl;
+        cout<<"Data "<<X<<" berhasil ditambah"<<endl;
     } else {
-        cout << "Antrian penuh!" << endl;
+        cout<<"Data Penuh"<<endl;
     }
 }
 
-void Dequeue(queue *Q, address *X){
+void Dequeue(queue *Q, infotype *X){
     if(!IsEmpty(*Q)){
         *X = InfoFront(*Q);
         if(FRONT(*Q) == REAR(*Q)){
@@ -51,21 +51,20 @@ void Dequeue(queue *Q, address *X){
             REAR(*Q) = nil;
         } else {
             FRONT(*Q) += 1;
+            cout<<"Data "<<*X<<" berhasil dihapus"<<endl;
         }
-        cout << "Data " << *X << " berhasil dihapus" << endl;
     } else {
-        cout << "Antrian kosong!" << endl;
+        cout<<"Data Kosong"<<endl;
     }
 }
 
 void ShowData(queue *Q){
     if(!IsEmpty(*Q)){
-        cout << "Data dalam antrian = " << endl;
         for(int i = FRONT(*Q); i <= REAR(*Q); i++){
-            cout << (*Q).Data[i] << endl;
+            cout<<(*Q).Data[i]<<endl;
         }
     } else {
-        cout << "Antrian kosong" << endl;
+        cout<<"Data Kosong"<<endl;
     }
 }
 
