@@ -14,14 +14,14 @@ nAddress alloc(infotype X){
     nAddress newNode;
     newNode = new Node();
     newNode->info = X;
-    newNode->left = NULL;
-    newNode->right = NULL;
-    newNode->parent = NULL;
+    newNode->left = 0;
+    newNode->right = 0;
+    newNode->parent = 0;
     return newNode;
 }
 
 void create(infotype info){ 
-    if (root != NULL){
+    if (root != 0){
         cout << endl << "Tidak bisa membuat root" << endl; 
     }
     else{
@@ -31,9 +31,9 @@ void create(infotype info){
 }
 
 nAddress insertLeft(infotype info, nAddress nodeParent){
-    if (nodeParent->left != NULL){
+    if (nodeParent->left != 0){
         cout << endl << "Gagal menambah insert left" << endl;
-        return NULL;
+        return 0;
     }
     else{
         nAddress newNode;
@@ -46,9 +46,9 @@ nAddress insertLeft(infotype info, nAddress nodeParent){
 }
 
 nAddress insertRight(infotype info, nAddress nodeParent){
-    if (nodeParent->right != NULL){
+    if (nodeParent->right != 0){
         cout << endl << "Gagal menambah insert right" << endl;
-        return NULL;
+        return 0;
     }
     else{
         nAddress newNode;
@@ -60,27 +60,27 @@ nAddress insertRight(infotype info, nAddress nodeParent){
     }
 }
 
-void preOrder(nAddress P){
-    if (P != NULL){
-        cout << P->info << " ";
-        preOrder(P->left);
-        preOrder(P->right);
+void PreOrder(nAddress P){
+    if(P != 0){
+        cout<<P -> info<<" ";
+        PreOrder(P -> left);
+        PreOrder(P -> right);
     }
 }
 
-void inOrder(nAddress P){
-    if (P != NULL){
-        inOrder(P->left);
-        cout << P->info << " ";
-        inOrder(P->right);
+void InOrder(nAddress P){
+    if(P != 0){
+        InOrder(P -> left);
+        cout<<P -> info<<" ";
+        InOrder(P -> right);
     }
 }
 
-void postOrder(nAddress P){
-    if (P != NULL){
-        postOrder(P->left);
-        postOrder(P->right);
-        cout << P->info << " ";
+void PostOrder(nAddress P){
+    if(P != 0){
+        PostOrder(P -> left);
+        PostOrder(P -> right);
+        cout<<P -> info<<" ";
     }
 }
 
@@ -100,15 +100,15 @@ int main(){
     cout << endl << "Traversal Tree:" << endl;
 
     cout << "Pre-Order: ";
-    preOrder(root);
+    PreOrder(root);
     cout << endl;
 
     cout << "In-Order: ";
-    inOrder(root);
+    InOrder(root);
     cout << endl;
 
     cout << "Post-Order: ";
-    postOrder(root);
+    PostOrder(root);
     cout << endl;
 
     return 0;
