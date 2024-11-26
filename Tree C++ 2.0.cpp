@@ -22,17 +22,17 @@ nAddress alloc(infotype X){
 
 void create(infotype info){ 
     if (root != 0){
-        cout << endl << "Tidak bisa membuat root" << endl; 
+        cout <<"Tidak bisa membuat root"<<endl; 
     }
     else{
         root = alloc(info);
-        cout << endl << "Root ditambah" << endl;
+        cout <<"Root ditambah"<<endl;
     }
 }
 
 nAddress insertLeft(infotype info, nAddress nodeParent){
     if (nodeParent->left != 0){
-        cout << endl << "Gagal menambah insert left" << endl;
+        cout <<"Gagal menambah insert left"<<endl;
         return 0;
     }
     else{
@@ -40,14 +40,14 @@ nAddress insertLeft(infotype info, nAddress nodeParent){
         newNode = alloc(info);
         nodeParent->left = newNode; 
         newNode->parent = nodeParent; 
-        cout << info << " ditambahkan sebagai anak kiri dari " << nodeParent->info << endl;
+        cout <<info<<" ditambahkan sebagai anak kiri dari "<<nodeParent->info<< endl;
         return newNode;
     }
 }
 
 nAddress insertRight(infotype info, nAddress nodeParent){
     if (nodeParent->right != 0){
-        cout << endl << "Gagal menambah insert right" << endl;
+        cout <<"Gagal menambah insert right"<< endl;
         return 0;
     }
     else{
@@ -55,7 +55,7 @@ nAddress insertRight(infotype info, nAddress nodeParent){
         newNode = alloc(info);
         nodeParent->right = newNode;
         newNode->parent = nodeParent;
-        cout << info << " ditambahkan sebagai anak kanan dari " << nodeParent->info << endl;
+        cout <<info<<" ditambahkan sebagai anak kanan dari "<<nodeParent->info<<endl;
         return newNode;
     }
 }
