@@ -37,9 +37,9 @@ void Enqueue(queue *Q, infotype X){
         }
         REAR(*Q) += 1;
         InfoRear(*Q) = X;
-        cout<<"Data "<<X<<" berhasil ditambah"<<endl;
+        cout<<"Data "<<X<<" berhasil ditambahkan"<<endl;
     } else {
-        cout<<"Data penuh"<<endl;
+        cout<<"Data Penuh"<<endl;
     }
 }
 
@@ -52,9 +52,9 @@ void Dequeue(queue *Q, infotype *X){
         } else {
             FRONT(*Q) += 1;
         }
-        cout<<"Data "<<*X<<" berhasil dihapus"<<endl;
+        cout<<"Data "<<*X<<" berhasil dihapuskan"<<endl;
     } else {
-        cout<<"Data kosong"<<endl;
+        cout<<"Data Kosong"<<endl;
     }
 }
 
@@ -72,9 +72,10 @@ int main(){
     queue DataAntrianQueue;
     infotype Data;
     CreateEmpty(&DataAntrianQueue);
-    Enqueue(&DataAntrianQueue, 3);
     Enqueue(&DataAntrianQueue, 4);
-    Enqueue(&DataAntrianQueue, 5);
+    Enqueue(&DataAntrianQueue, 3);
+    Enqueue(&DataAntrianQueue, 2);
+    Enqueue(&DataAntrianQueue, 1);
     ShowData(&DataAntrianQueue);
     Dequeue(&DataAntrianQueue, &Data);
     ShowData(&DataAntrianQueue);
