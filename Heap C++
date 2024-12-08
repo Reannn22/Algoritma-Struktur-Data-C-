@@ -1,13 +1,13 @@
 #include <iostream>
 using namespace std;
 
-#define MaxEl 10
-#define Nil 0
+#define max 10
+#define nil 0
 
 typedef int infotype;
 
 typedef struct tHeap {
-    infotype Data[MaxEl];
+    infotype Data[max];
     infotype INDEX;
 } Heap;
 
@@ -15,18 +15,18 @@ typedef struct tHeap {
 #define INDEX(H) (H).INDEX
 
 void CreateEmpty(Heap *H) {
-    INDEX(*H) = Nil;
-    for (int i = 0; i < MaxEl; i++) { // i = 0 
-        Data(*H, i) = Nil;
+    INDEX(*H) = nil;
+    for (int i = 0; i < max; i++) { 
+        Data(*H, i) = nil;
     }
 }
 
 bool IsEmpty(Heap H) {
-    return (INDEX(H) == Nil); // mengecek entri node di heap dalam keadaan nol
+    return (INDEX(H) == nil); 
 }
 
 bool IsFull(Heap H) {
-    return (INDEX(H) == MaxEl);
+    return (INDEX(H) == max);
 }
 
 void Heapify(Heap *H, infotype i) {
