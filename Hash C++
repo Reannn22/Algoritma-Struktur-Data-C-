@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 
-#define Nil 0
-#define MaxEl 100
+#define max 100
+#define nil 0
 
 typedef int infotype;
 typedef struct tNode *addrNode;
@@ -14,14 +14,14 @@ typedef struct tNode {
 
 typedef struct tHash {
     addrNode first;
-} Hash[MaxEl];
+} Hash[max];
 
 #define Info(P) (P)->info
 #define Next(P) (P)->next
 #define First(H, i) (H)[i].first
 
 int HashModulus(infotype x) {
-    return x % MaxEl;
+    return x % max;
 }
 
 int HashCutting(infotype x) {
@@ -31,35 +31,35 @@ int HashCutting(infotype x) {
 int HashFolding(infotype x) {
     int part1 = x / 1000;
     int part2 = x % 1000;
-    return (part1 + part2) % MaxEl;
+    return (part1 + part2) % max;
 }
 
 void CreateEmptyHash(Hash H) {
-    for (int i = 0; i < MaxEl; i++) {
-        First(H, i) = Nil;
+    for (int i = 0; i < max; i++) {
+        First(H, i) = nil;
     }
 }
 
 addrNode NodeAllocation(infotype x) {
     addrNode P = new Node;
     Info(P) = x;
-    Next(P) = Nil;
+    Next(P) = nil;
     return P;
 }
 
 void NodeDeAllocation(addrNode &P) {
     delete P;
-    P = Nil;
+    P = nil;
 }
 
 bool IsEmptyHash(Hash H, int index) {
-    return First(H, index) == Nil;
+    return First(H, index) == nil;
 }
 
 void Insert(Hash H, infotype x, int (*hashFunc)(infotype)) {
     int index = hashFunc(x);
     addrNode newNode = NodeAllocation(x);
-    if (newNode != Nil) {
+    if (newNode != nil) {
         Next(newNode) = First(H, index);
         First(H, index) = newNode;
     }
@@ -73,17 +73,17 @@ void Delete(Hash H, infotype x, int (*hashFunc)(infotype)) {
         return;
     }
     addrNode P = First(H, index);
-    addrNode prev = Nil;
+    addrNode prev = nil;
 
-    while (P != Nil && Info(P) != x) {
+    while (P != nil && Info(P) != x) {
         prev = P;
         P = Next(P);
     }
-    if (P == Nil) {
+    if (P == nil) {
         cout << "Value " << x << " tidak ditemukan pada indeks " << index << endl;
         return;
     }
-    if (prev == Nil) {
+    if (prev == nil) {
         First(H, index) = Next(P);
     } else {
         Next(prev) = Next(P);
@@ -93,14 +93,14 @@ void Delete(Hash H, infotype x, int (*hashFunc)(infotype)) {
 }
 
 void Display(Hash H) {
-    for (int i = 0; i < MaxEl; i++) {
+    for (int i = 0; i < max; i++) {
         cout << "Indeks " << i << ": ";
         addrNode P = First(H, i);
-        while (P != Nil) {
+        while (P != nil) {
             cout << Info(P) << " -> ";
             P = Next(P);
         }
-        cout << "Nil" << endl;
+        cout << "nil" << endl;
     }
 }
 
