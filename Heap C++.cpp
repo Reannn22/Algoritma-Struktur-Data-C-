@@ -5,7 +5,6 @@ using namespace std;
 #define nil 0
 
 typedef int infotype;
-
 typedef struct tHeap {
     infotype Data[max];
     infotype INDEX;
