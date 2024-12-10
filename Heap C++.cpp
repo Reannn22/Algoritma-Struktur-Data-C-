@@ -47,6 +47,7 @@ void displayHeap(const vector<int>& heap) {
 
 int main() {
     vector<int> maxHeap;
+    
     insert(maxHeap, 50); 
     insert(maxHeap, 30); 
     insert(maxHeap, 20); 
