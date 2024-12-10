@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-void heapifyUp(vector<int>& heap, int index) {
+void heapifyUp(vector<int> &heap, int index) {
     int parent = (index - 1) / 2;
     if (index > 0 && heap[index] > heap[parent]) {
         swap(heap[index], heap[parent]);
@@ -10,7 +10,7 @@ void heapifyUp(vector<int>& heap, int index) {
     }
 }
 
-void heapifyDown(vector<int>& heap, int index) {
+void heapifyDown(vector<int> &heap, int index) {
     int leftChild = 2 * index + 1;
     int rightChild = 2 * index + 2;
     int largest = index;
@@ -24,12 +24,12 @@ void heapifyDown(vector<int>& heap, int index) {
     }
 }
 
-void insert(vector<int>& heap, int value) {
+void insert(vector<int> &heap, int value) {
     heap.push_back(value); 
     heapifyUp(heap, heap.size() - 1); 
 }
 
-void deleteRoot(vector<int>& heap) {
+void deleteRoot(vector<int> &heap) {
     if (heap.empty()) {
         cout << "Heap kosong!" << endl;
         return;
@@ -39,7 +39,7 @@ void deleteRoot(vector<int>& heap) {
     heapifyDown(heap, 0);
 }
 
-void displayHeap(const vector<int>& heap) {
+void displayHeap(const vector<int> &heap) {
     for (int val : heap)
         cout << val << " ";
     cout << endl;
