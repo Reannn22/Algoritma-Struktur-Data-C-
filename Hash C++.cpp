@@ -1,135 +1,127 @@
 #include <iostream>
 using namespace std;
 
-#define max 100
-#define nil 0
+const int MAX = 100; // Mengganti #define max
 
-typedef int infotype;
-typedef struct tNode *addrNode;
+struct Node {
+    int info;
+    Node* next;
+};
 
-typedef struct tNode {
-    infotype info;
-    addrNode next;
-} Node;
+struct HashTable {
+    Node* first[MAX];
+};
 
-typedef struct tHash {
-    addrNode first;
-} Hash[max];
-
-#define Info(P) (P)->info
-#define Next(P) (P)->next
-#define First(H, i) (H)[i].first
-
-int HashModulus(infotype x) {
-    return x % max;
+int hashModulus(int x) {
+    return x % MAX;
 }
 
-int HashCutting(infotype x) {
+int hashCutting(int x) {
     return x % 100;
 }
 
-int HashFolding(infotype x) {
+int hashFolding(int x) {
     int part1 = x / 1000;
     int part2 = x % 1000;
-    return (part1 + part2) % max;
+    return (part1 + part2) % MAX;
 }
 
-void CreateEmptyHash(Hash H) {
-    for (int i = 0; i < max; i++) {
-        First(H, i) = nil;
+void createEmptyHash(HashTable &H) {
+    for (int i = 0; i < MAX; i++) {
+        H.first[i] = NULL;
     }
 }
 
-addrNode NodeAllocation(infotype x) {
-    addrNode P = new Node;
-    Info(P) = x;
-    Next(P) = nil;
-    return P;
+Node* allocateNode(int x) {
+    Node* newNode = new Node;
+    newNode->info = x;
+    newNode->next = NULL;
+    return newNode;
 }
 
-void NodeDeAllocation(addrNode &P) {
+void deallocateNode(Node* &P) {
     delete P;
-    P = nil;
+    P = NULL;
 }
 
-bool IsEmptyHash(Hash H, int index) {
-    return First(H, index) == nil;
+bool isEmptyHash(HashTable &H, int index) {
+    return H.first[index] == NULL;
 }
 
-void Insert(Hash H, infotype x, int (*hashFunc)(infotype)) {
+void insert(HashTable &H, int x, int (*hashFunc)(int)) {
     int index = hashFunc(x);
-    addrNode newNode = NodeAllocation(x);
-    if (newNode != nil) {
-        Next(newNode) = First(H, index);
-        First(H, index) = newNode;
+    Node* newNode = allocateNode(x);
+    if (newNode) {
+        newNode->next = H.first[index];
+        H.first[index] = newNode;
     }
     cout << "Value " << x << " dimasukkan ke indeks " << index << endl;
 }
 
-void Delete(Hash H, infotype x, int (*hashFunc)(infotype)) {
+void remove(HashTable &H, int x, int (*hashFunc)(int)) {
     int index = hashFunc(x);
-    if (IsEmptyHash(H, index)) {
-        cout << "Value " << x << " tidak ditemukan dalam tabel hash." << endl;
-        return;
-    }
-    addrNode P = First(H, index);
-    addrNode prev = nil;
-
-    while (P != nil && Info(P) != x) {
+    Node* P = H.first[index];
+    Node* prev = NULL;
+    while (P && P->info != x) {
         prev = P;
-        P = Next(P);
+        P = P->next;
     }
-    if (P == nil) {
+    if (!P) {
         cout << "Value " << x << " tidak ditemukan pada indeks " << index << endl;
         return;
     }
-    if (prev == nil) {
-        First(H, index) = Next(P);
+    if (!prev) {
+        H.first[index] = P->next;
     } else {
-        Next(prev) = Next(P);
+        prev->next = P->next;
     }
-    NodeDeAllocation(P);
+    deallocateNode(P);
     cout << "Value " << x << " dihapus dari indeks " << index << endl;
 }
 
-void Display(Hash H) {
-    for (int i = 0; i < max; i++) {
+void display(const HashTable &H) {
+    for (int i = 0; i < MAX; i++) {
         cout << "Indeks " << i << ": ";
-        addrNode P = First(H, i);
-        while (P != nil) {
-            cout << Info(P) << " -> ";
-            P = Next(P);
+        Node* P = H.first[i];
+        while (P) {
+            cout << P->info << " -> ";
+            P = P->next;
         }
-        cout << "nil" << endl;
+        cout << "NULL" << endl;
     }
 }
 
 int main() {
-    Hash HMod, HCut, HFold;
-    CreateEmptyHash(HMod);
-    CreateEmptyHash(HCut);
-    CreateEmptyHash(HFold);
-    Insert(HMod, 12345, HashModulus);
-    Insert(HCut, 12345, HashCutting);
-    Insert(HFold, 12345, HashFolding);
-    Insert(HMod, 67890, HashModulus);
-    Insert(HCut, 67890, HashCutting);
-    Insert(HFold, 67890, HashFolding);
+    HashTable HMod, HCut, HFold;
+    createEmptyHash(HMod);
+    createEmptyHash(HCut);
+    createEmptyHash(HFold);
+
+    insert(HMod, 12345, hashModulus);
+    insert(HCut, 12345, hashCutting);
+    insert(HFold, 12345, hashFolding);
+    insert(HMod, 67890, hashModulus);
+    insert(HCut, 67890, hashCutting);
+    insert(HFold, 67890, hashFolding);
+
     cout << "Tabel Hash dengan Modulus:" << endl;
-    Display(HMod);
+    display(HMod);
     cout << "\nTabel Hash dengan Cutting:" << endl;
-    Display(HCut);
+    display(HCut);
     cout << "\nTabel Hash dengan Folding:" << endl;
-    Display(HFold);
-    Delete(HMod, 12345, HashModulus);
-    Delete(HCut, 12345, HashCutting);
-    Delete(HFold, 12345, HashFolding);
+    display(HFold);
+
+    remove(HMod, 12345, hashModulus);
+    remove(HCut, 12345, hashCutting);
+    remove(HFold, 12345, hashFolding);
+
     cout << "\nSetelah Penghapusan:" << endl;
     cout << "Tabel Hash dengan Modulus:" << endl;
-    Display(HMod);
+    display(HMod);
     cout << "\nTabel Hash dengan Cutting:" << endl;
-    Display(HCut);
+    display(HCut);
     cout << "\nTabel Hash dengan Folding:" << endl;
-    Display(HFold);
+    display(HFold);
+
     return 0;
 }
