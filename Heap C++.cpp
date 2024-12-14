@@ -42,7 +42,7 @@ void deleteRoot(vector<int> &heap) {
 void displayHeap(const vector<int> &heap) {
     for (int val : heap)
         cout << val << " ";
-    cout << endl;
+        cout << endl;
 }
 
 int main() {
