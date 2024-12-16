@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-const int MAX = 100; // Mengganti #define max
+const int MAX = 100; 
 
 struct Node {
     int info;
