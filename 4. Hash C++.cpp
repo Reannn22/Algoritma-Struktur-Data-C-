@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-const int MAX = 100; 
+const int Max = 100; 
 
 struct Node {
     int info;
@@ -9,12 +9,12 @@ struct Node {
 };
 
 struct hashTable {
-    Node* first[MAX] = {nullptr};
+    Node* first[Max] = {nullptr};
 };
 
-int hashModulus(int x) { return x % MAX; }
+int hashModulus(int x) { return x % Max; }
 int hashCutting(int x) { return x % 100; }
-int hashFolding(int x) { return (x / 1000 + x % 1000) % MAX; }
+int hashFolding(int x) { return (x / 1000 + x % 1000) % Max; }
 
 Node* createNode(int x) {
     return new Node{x, nullptr};
@@ -48,7 +48,7 @@ void remove(hashTable &h, int x, int (*hashFunc)(int)) {
 }
 
 void display(const hashTable &h) {
-    for (int i = 0; i < MAX; ++i) {
+    for (int i = 0; i < Max; ++i) {
         cout << "Indeks " << i << ": ";
         for (Node* P = h.first[i]; P; P = P->next)
             cout << P->info << " -> ";
