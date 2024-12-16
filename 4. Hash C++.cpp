@@ -31,22 +31,18 @@ void insert(hashTable &h, int x, int (*hashFunc)(int)) {
 void remove(hashTable &h, int x, int (*hashFunc)(int)) {
     int index = hashFunc(x);
     Node *P = h.first[index], *prev = nullptr;
-
     while (P && P->info != x) {
         prev = P;
         P = P->next;
     }
-
     if (!P) {
         cout << "Value " << x << " tidak ditemukan pada indeks " << index << endl;
         return;
     }
-
     if (!prev)
         h.first[index] = P->next;
     else
         prev->next = P->next;
-
     delete P;
     cout << "Value " << x << " dihapus dari indeks " << index << endl;
 }
