@@ -8,120 +8,86 @@ struct Node {
     Node* next;
 };
 
-struct HashTable {
-    Node* first[MAX];
+struct hashTable {
+    Node* first[MAX] = {nullptr};
 };
 
-int hashModulus(int x) {
-    return x % MAX;
+int hashModulus(int x) { return x % MAX; }
+int hashCutting(int x) { return x % 100; }
+int hashFolding(int x) { return (x / 1000 + x % 1000) % MAX; }
+
+Node* createNode(int x) {
+    return new Node{x, nullptr};
 }
 
-int hashCutting(int x) {
-    return x % 100;
-}
-
-int hashFolding(int x) {
-    int part1 = x / 1000;
-    int part2 = x % 1000;
-    return (part1 + part2) % MAX;
-}
-
-void createEmptyHash(HashTable &H) {
-    for (int i = 0; i < MAX; i++) {
-        H.first[i] = NULL;
-    }
-}
-
-Node* alloc(int x) {
-    Node* newNode = new Node;
-    newNode->info = x;
-    newNode->next = NULL;
-    return newNode;
-}
-
-void dealloc(Node* &P) {
-    delete P;
-    P = NULL;
-}
-
-bool isEmptyHash(HashTable &H, int index) {
-    return H.first[index] == NULL;
-}
-
-void insert(HashTable &H, int x, int (*hashFunc)(int)) {
+void insert(hashTable &h, int x, int (*hashFunc)(int)) {
     int index = hashFunc(x);
-    Node* newNode = alloc(x);
-    if (newNode) {
-        newNode->next = H.first[index];
-        H.first[index] = newNode;
-    }
+    Node* newNode = createNode(x);
+    newNode->next = h.first[index];
+    h.first[index] = newNode;
     cout << "Value " << x << " dimasukkan ke indeks " << index << endl;
 }
 
-void remove(HashTable &H, int x, int (*hashFunc)(int)) {
+void remove(hashTable &h, int x, int (*hashFunc)(int)) {
     int index = hashFunc(x);
-    Node* P = H.first[index];
-    Node* prev = NULL;
+    Node *P = h.first[index], *prev = nullptr;
+
     while (P && P->info != x) {
         prev = P;
         P = P->next;
     }
+
     if (!P) {
         cout << "Value " << x << " tidak ditemukan pada indeks " << index << endl;
         return;
     }
-    if (!prev) {
-        H.first[index] = P->next;
-    } else {
+
+    if (!prev)
+        h.first[index] = P->next;
+    else
         prev->next = P->next;
-    }
-    dealloc(P);
+
+    delete P;
     cout << "Value " << x << " dihapus dari indeks " << index << endl;
 }
 
-void display(const HashTable &H) {
-    for (int i = 0; i < MAX; i++) {
+void display(const hashTable &h) {
+    for (int i = 0; i < MAX; ++i) {
         cout << "Indeks " << i << ": ";
-        Node* P = H.first[i];
-        while (P) {
+        for (Node* P = h.first[i]; P; P = P->next)
             cout << P->info << " -> ";
-            P = P->next;
-        }
         cout << "NULL" << endl;
     }
 }
 
 int main() {
-    HashTable HMod, HCut, HFold;
-    createEmptyHash(HMod);
-    createEmptyHash(HCut);
-    createEmptyHash(HFold);
+    hashTable hMod, hCut, hFold;
 
-    insert(HMod, 12345, hashModulus);
-    insert(HCut, 12345, hashCutting);
-    insert(HFold, 12345, hashFolding);
-    insert(HMod, 67890, hashModulus);
-    insert(HCut, 67890, hashCutting);
-    insert(HFold, 67890, hashFolding);
+    insert(hMod, 12345, hashModulus);
+    insert(hCut, 12345, hashCutting);
+    insert(hFold, 12345, hashFolding);
+    insert(hMod, 67890, hashModulus);
+    insert(hCut, 67890, hashCutting);
+    insert(hFold, 67890, hashFolding);
 
-    cout << "Tabel Hash dengan Modulus:" << endl;
-    display(HMod);
-    cout << "\nTabel Hash dengan Cutting:" << endl;
-    display(HCut);
-    cout << "\nTabel Hash dengan Folding:" << endl;
-    display(HFold);
+    cout << "Tabel Hash dengan Modulus:\n";
+    display(hMod);
+    cout << "\nTabel Hash dengan Cutting:\n";
+    display(hCut);
+    cout << "\nTabel Hash dengan Folding:\n";
+    display(hFold);
 
-    remove(HMod, 12345, hashModulus);
-    remove(HCut, 12345, hashCutting);
-    remove(HFold, 12345, hashFolding);
+    remove(hMod, 12345, hashModulus);
+    remove(hCut, 12345, hashCutting);
+    remove(hFold, 12345, hashFolding);
 
-    cout << "\nSetelah Penghapusan:" << endl;
-    cout << "Tabel Hash dengan Modulus:" << endl;
-    display(HMod);
-    cout << "\nTabel Hash dengan Cutting:" << endl;
-    display(HCut);
-    cout << "\nTabel Hash dengan Folding:" << endl;
-    display(HFold);
+    cout << "\nSetelah Penghapusan:\n";
+    cout << "Tabel Hash dengan Modulus:\n";
+    display(hMod);
+    cout << "\nTabel Hash dengan Cutting:\n";
+    display(hCut);
+    cout << "\nTabel Hash dengan Folding:\n";
+    display(hFold);
 
     return 0;
 }
