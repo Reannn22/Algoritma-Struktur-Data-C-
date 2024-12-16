@@ -32,14 +32,14 @@ void createEmptyHash(HashTable &H) {
     }
 }
 
-Node* allocateNode(int x) {
+Node* alloc(int x) {
     Node* newNode = new Node;
     newNode->info = x;
     newNode->next = NULL;
     return newNode;
 }
 
-void deallocateNode(Node* &P) {
+void dealloc(Node* &P) {
     delete P;
     P = NULL;
 }
@@ -50,7 +50,7 @@ bool isEmptyHash(HashTable &H, int index) {
 
 void insert(HashTable &H, int x, int (*hashFunc)(int)) {
     int index = hashFunc(x);
-    Node* newNode = allocateNode(x);
+    Node* newNode = alloc(x);
     if (newNode) {
         newNode->next = H.first[index];
         H.first[index] = newNode;
@@ -75,7 +75,7 @@ void remove(HashTable &H, int x, int (*hashFunc)(int)) {
     } else {
         prev->next = P->next;
     }
-    deallocateNode(P);
+    dealloc(P);
     cout << "Value " << x << " dihapus dari indeks " << index << endl;
 }
 
