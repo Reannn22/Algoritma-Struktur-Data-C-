@@ -9,7 +9,7 @@ struct Node {
 };
 
 struct hashTable {
-    Node* first[Max] = {nullptr};
+    Node* first[Max] = {NULL};
 };
 
 int hashModulus(int x) { return x % Max; }
@@ -17,7 +17,7 @@ int hashCutting(int x) { return x % 100; }
 int hashFolding(int x) { return (x / 1000 + x % 1000) % Max; }
 
 Node* createNode(int x) {
-    return new Node{x, nullptr};
+    return new Node{x, NULL};
 }
 
 void insert(hashTable &h, int x, int (*hashFunc)(int)) {
@@ -30,7 +30,7 @@ void insert(hashTable &h, int x, int (*hashFunc)(int)) {
 
 void remove(hashTable &h, int x, int (*hashFunc)(int)) {
     int index = hashFunc(x);
-    Node *P = h.first[index], *prev = nullptr;
+    Node *P = h.first[index], *prev = NULL;
     while (P && P->info != x) {
         prev = P;
         P = P->next;
